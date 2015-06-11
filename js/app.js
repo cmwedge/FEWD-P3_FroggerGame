@@ -1,3 +1,5 @@
+"use strict";
+
 // Enemies our player must avoid
 var Enemy = function (startX, startY, speed, enableSpecial) {
     this.sprite = 'images/enemy-bug.png';
@@ -53,8 +55,8 @@ var Player = function (startX, startY) {
  */
 Player.prototype.update = function (dt) {
     // get player tile coordinates
-    var pTileX = Math.floor(player.x / tileWidth);
-    var pTileY = Math.floor(player.y / tileHeight);
+    var pTileX = Math.floor(this.x / tileWidth);
+    var pTileY = Math.floor(this.y / tileHeight);
 
     for (var i = 0; i < allEnemies.length; i++) {
         // get current enemy tile coordinates
@@ -64,7 +66,7 @@ Player.prototype.update = function (dt) {
 
         // if same tile coordinates as player, reset
         if (eTileX === pTileX && eTileY === pTileY)
-            player.resetPosition();
+            this.resetPosition();
     }
 };
 
@@ -73,7 +75,7 @@ Player.prototype.resetPosition = function () {
     this.x = this.originX;
     this.y = this.originY;
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
-}
+};
 
 // Renders the player
 Player.prototype.render = function () {
@@ -84,7 +86,7 @@ Player.prototype.render = function () {
 Player.prototype.scorePoint = function () {
     this.resetPosition();
     this.points += 1;
-}
+};
 
 // Handles user input
 Player.prototype.handleInput = function (keyName) {
